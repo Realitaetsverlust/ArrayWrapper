@@ -1,0 +1,23 @@
+{
+  "name": "realitaetsverlust/arraywrapper",
+  "type": "library",
+  "description": "An OOP-Wrapper for Arrays in PHP",
+  "keywords": [],
+  "license": "WTFPL",
+  "minimum-stability": "dev",
+  "authors": [
+    {
+      "name": "Realitaetsverlust",
+      "email": "realitaetsverlust@realitaetsverlust.rocks",
+      "role": "Lead Developer"
+    }
+  ],
+  "require": {
+    "php": ">= 7.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "Realitaetsverlust\\Wrapper\\": "./src/"
+    }
+  }
+}
