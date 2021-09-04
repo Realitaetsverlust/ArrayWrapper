@@ -3,7 +3,6 @@
 namespace Realitaetsverlust\Wrapper;
 
 use \Iterator;
-use Realitaetsverlust\Wrapper\Exception\DuplicateKeyException;
 
 class ArrayWrapper implements Iterator {
     /**
@@ -27,26 +26,18 @@ class ArrayWrapper implements Iterator {
      * @param mixed $value Value of the newly added element
      * @param bool $overwrite Overwrite existing keys instead of throwing an exception
      */
-    public function add($key, $value, bool $overwrite = false): bool {
-        if($overwrite) {
-            $this->addElement($key, $value);
-            return true;
-        }
-
-        if($this->exists($key) === true) {
-            throw new DuplicateKeyException("Key {$key} already in the given array, to overwrite, please set \$overwrite to true");
-        }
-
+    public function add($key, $value): ArrayWrapper {
         $this->addElement($key, $value);
-        return true;
+        return $this;
     }
 
     /**
      * Removes element from the array
      * @param $key
      */
-    public function remove($key): void {
+    public function remove($key): ArrayWrapper {
         $this->removeElement($key);
+        return $this;
     }
 
     /**
@@ -66,7 +57,7 @@ class ArrayWrapper implements Iterator {
     }
 
 
-    public function sort(): void {
+    public function sort(string $sortMode): void {
 
     }
 
@@ -75,9 +66,9 @@ class ArrayWrapper implements Iterator {
      *
      * @param ArrayWrapper $array the array to merge
      */
-    public function merge(ArrayWrapper $array): void {
+    public function merge(ArrayWrapper $array): ArrayWrapper {
         $this->array = array_merge($this->extract(), $array->extract());
-
+        return $this;
     }
 
     /**
@@ -89,6 +80,7 @@ class ArrayWrapper implements Iterator {
         return isset($this->array[$keyName]);
     }
 
+    // Iterator-Stubs
     /**
      * Fetches current element
      * @return mixed
@@ -127,6 +119,7 @@ class ArrayWrapper implements Iterator {
         $this->position = 0;
     }
 
+    // Internal functions
     /**
      * Used internally to add an element to the array
      *
